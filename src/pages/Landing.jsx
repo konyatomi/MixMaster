@@ -15,6 +15,6 @@ const Landing = () => {
   const { drinks, searchTerm } = useLoaderData();
   console.log(drinks);
 
-  return <div>Landing</div>;
+  return <h1>Landing</h1>;
 };
 export default Landing;
