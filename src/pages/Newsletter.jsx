@@ -8,12 +8,17 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  const response = await axios.post(newsletterUrl, data);
+  try {
+    const response = await axios.post(newsletterUrl, data);
 
-  console.log(response);
-  toast.success(response.data.msg);
+    toast.success(response.data.msg);
 
-  return redirect('/');
+    return redirect('/');
+  } catch (error) {
+    console.log(error);
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
 };
 
 const Newsletter = () => {
@@ -33,7 +38,6 @@ const Newsletter = () => {
           name='name'
           id='name'
           required
-          defaultValue='john'
         />
       </div>
       {/*  lastName*/}
@@ -47,7 +51,6 @@ const Newsletter = () => {
           name='lastName'
           id='lastName'
           required
-          defaultValue='smith'
         />
       </div>
       {/*  email*/}
@@ -61,7 +64,7 @@ const Newsletter = () => {
           name='email'
           id='email'
           required
-          defaultValue='test@example.com'
+          defaultValue='test@test.com'
         />
       </div>
       <button
